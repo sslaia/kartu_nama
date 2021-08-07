@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
           title: const Text('Kartu Nama'),
         ),
         body: const Center(
-          child: Text('Ama Zihago'),
+          child: Text('Bebalazi Ndruru'),
         ),
       ),
     );
