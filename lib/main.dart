@@ -1,82 +1,158 @@
-// Copyright 2018 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:flutter/material.dart';
+import 'package:linkable/linkable.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  // const KartuNama({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Ini judul yang akan berlaku untuk seluruh aplikasi
-      title: 'Kartu Nama',
-      home: Scaffold(
-        // Ini judul yang akan berlaku untuk layar tertentu yang sedang kita lihat
-        // Kalau aplikasi memiliki beberapa layar berbeda
-        // maka judulnya bisa berbeda-beda.
-        appBar: AppBar(
-          title: const Text('Kartu Nama'),
-        ),
-        body: Column(
-          // Untuk membuat seluruh konten tampil di tengah layar (atas ke bawah)
-          // gunakan parameter mainAxisAlignment: MainAxisAlignment.center,
-          // Kalau perlu membuat konten berada di tengah (antara kiri dan kanan)
-          // gunakan parameter crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Gunakan widget CircleAvater untuk membuat foto/gambar
-            // tampil bundar seperti layaknya foto profil.
-            // Parameternya berbeda dengan widget Image
-            // Gunakan paramaeter radius dan backgroundImage
-            CircleAvatar(
-              radius: 75.0,
-              backgroundImage: AssetImage('images/foto_saya.jpg'),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // Kita definisikan beberapa variable,
+  // yang akan kita gunakan di dalam badan kode di bawah
+  String _namaPengguna = "BEBALAZI NDRURU";
+  String _pekerjaan = "MOBILE DEVELOPMENT CONSULTANT";
+  String _nomorTelepon = "+62 8210786462";
+  String _alamatEmail = "bebalazi@email.com";
+  String _alamatRumah = "Jl. Merdeka No. 7, Jakarta 13730";
+
+  @override
+  Widget build(BuildContext context) {
+    // Dari sini kita mulai membangun kerangka aplikasi
+    return Scaffold(
+      // Memasang warna latar belakang keseluruhan aplikasi
+      backgroundColor: Colors.indigo,
+      // Memasang baris di sebelah atas di mana judul halaman ditayangkan
+      // Barangkali untuk aplikasi Kartu Nama hal ini tidak perlu
+      // appBar: AppBar(
+      //   title: Text("Kartu Nama"),
+      // ),
+      body: Column(
+        // Untuk membuat seluruh konten tampil di tengah layar (atas ke bawah)
+        // gunakan parameter mainAxisAlignment: MainAxisAlignment.center,
+        // Kalau perlu membuat konten berada di tengah (antara kiri dan kanan)
+        // gunakan parameter crossAxisAlignment: CrossAxisAlignment.center,
+        //
+        mainAxisAlignment: MainAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Gunakan widget CircleAvater untuk membuat foto/gambar
+          // tampil bundar seperti layaknya foto profil.
+          // Parameternya berbeda dengan widget Image
+          // Gunakan paramaeter radius dan backgroundImage
+          CircleAvatar(
+            radius: 75.0,
+            backgroundImage: AssetImage('images/foto_saya.jpg'),
+          ),
+          // Membuat supaya teks lebih besar (fontSize) dan lebih tebal (fontWeight)
+          Text(
+            _namaPengguna,
+            style: TextStyle(
+                fontSize: 36.0,
+                color: Colors.white,),
+          ),
+          // SizedBox hanya sekedar membuat jarak
+          SizedBox(
+            width: 150.0,
+            height: 12.0,
+          ),
+          Text(
+            _pekerjaan,
+            style: TextStyle(
+              fontSize: 14.0,
+              letterSpacing: 2.5,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
-            // Memasang foto/gambar dari media penyimpanan lokal.
-            // Pastikan telah membuat folder images
-            // dan mengaktifkan folder tsb. dalam berkas pubspec.yaml
-            //
-            // Gunakan parameter width untuk mengontrol ukuran foto/gambar
-            // Image(
-            //   image: AssetImage('images/foto_saya.jpg'),
-            //   width: 150,
-            // ),
-            //
-            // Memasang foto/gambar dari Internet
-            //
-            // Kalau ukuran gambar/foto terlalu besar dan yang tampak di layar
-            // tidak memuaskan, gunakan parameter fit: BoxFit.cover
-            // untuk membuatnya tampak semua
-            //
-            // Image(
-            //   width: 150,
-            //   fit: BoxFit.cover,
-            //   image: NetworkImage(
-            //       'https://m.psecn.photoshelter.com/img-get/I0000dIsj0QKU4ZE/s/650/650/asia-indonesia-sumatra-Nias-Lagundri-5038.jpg'),
-            // ),
-            //
-            // Membuat supaya teks lebih besar (fontSize) dan lebih tebal (fontWeight)
-            Text(
-              'Bebalazi Ndruru',
-              style: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold),
+          ),
+          // SizedBox hanya sekedar membuat jarak
+          SizedBox(
+            width: 150.0,
+            height: 24.0,
+            child: Divider(
+              color: Colors.teal.shade100,
             ),
-            //
-            // Untuk mengakomodasi dua widget untuk nomor telepon (Icon  dan Text)
-            // gunakan widget Row
-            // Lalu untuk membuat ruang antara keduanya gunakan widget SizedBox
-            //
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.phone, color: Colors.blue),
-                SizedBox(width: 12.0),
-                Text('08210786462'),
-              ],
+          ),
+          // Supaya menarik kita tempatkan nomor telepon dll dalam widget Card
+          Card(
+            elevation: 16.0,
+            margin: EdgeInsets.symmetric(
+              vertical: 8.0,
+              horizontal: 16.0,
             ),
-          ],
-        ),
+            child: ListTile(
+              leading: Icon(
+                Icons.phone,
+                color: Colors.teal,
+              ),
+              title: Linkable(
+                text: _nomorTelepon,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.teal,
+                ),
+              ),
+            ),
+          ),
+          Card(
+            elevation: 16.0,
+            margin: EdgeInsets.symmetric(
+              vertical: 8.0,
+              horizontal: 16.0,
+            ),
+            child: ListTile(
+              leading: Icon(
+                Icons.email,
+                color: Colors.teal,
+              ),
+              title: Linkable(
+                text: _alamatEmail,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.teal,
+                ),
+              ),
+            ),
+          ),
+          Card(
+            elevation: 16.0,
+            margin: EdgeInsets.symmetric(
+              vertical: 8.0,
+              horizontal: 16.0,
+            ),
+            child: ListTile(
+              leading: Icon(
+                Icons.location_city_rounded,
+                color: Colors.teal,
+              ),
+              title: Text(
+                _alamatRumah,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.teal,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
